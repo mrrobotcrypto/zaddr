@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ZADDR — Nice to not meet you.</title>
+  <meta name="description" content="A dark cinematic cypherpunk art installation and 12-frame dissolution tribute for ZADDR on Zcash.">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22black%22/><text y=%22.9em%22 x=%22.1em%22 font-size=%2280%22 fill=%22%23f4b728%22 font-family=%22monospace%22 font-weight=%22bold%22>Z</text></svg>">
+</head>
+<body>
+  <!-- CRT Phosphor & Scanline Glitch Overlays -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Ambient Audio Indicator & Controls -->
+  <header class="ambient-header">
+    <div class="brand-minimal">
+      <span class="z-glyph">
+        <svg viewBox="0 0 28 28" width="16" height="16" fill="none">
+          <path d="M5 7h18l-11 14h11" stroke="#f4b728" stroke-width="2.5" stroke-linecap="square"/>
+        </svg>
+      </span>
+      <span class="brand-title mono">ZADDR // TRIBUTE</span>
+      <span class="dot-live" title="Live Orchard connection"></span>
+    </div>
+
+    <div class="header-actions">
+      <button id="soundBtn" class="pill-btn mono" title="Toggle Cinematic Cypherpunk Atmosphere">
+        <span class="sound-wave"><span></span><span></span><span></span></span>
+        <span id="soundLabel">ATMOSPHERE: ON</span>
+      </button>
+      <button id="infoBtn" class="pill-btn mono">MANIFESTO ↗</button>
+    </div>
+  </header>
+
+  <!-- Main Art Stage -->
+  <main class="art-stage">
+    <!-- Eerie Background Typography Watermark -->
+    <div class="watermark-bg mono" aria-hidden="true">
+      NICE TO NOT MEET YOU
+    </div>
+
+    <!-- The Central Interactive Canvas Frame -->
+    <div class="canvas-frame" id="canvasFrame">
+      <!-- Crosshair HUD elements -->
+      <div class="hud-corner top-left mono">01 // VISIBLE</div>
+      <div class="hud-corner top-right mono" id="hudCoords">ORCHARD: 100%</div>
+      <div class="hud-corner bottom-left mono" id="hudFrame">FRAME: 01/12</div>
+      <div class="hud-corner bottom-right mono">2,800 FACES</div>
+
+      <!-- Live Interactive & Particle Canvas -->
+      <canvas id="artCanvas" width="384" height="384"></canvas>
+
+      <!-- Interactive Lens Reticle following mouse -->
+      <div class="lens-reticle" id="lensReticle" style="display: none;">
+        <div class="reticle-ring"></div>
+        <div class="reticle-dot"></div>
+        <span class="reticle-tag mono">SHIELD_PROBE</span>
+      </div>
+    </div>
+
+    <!-- Art Caption / Philosophy Quote -->
+    <div class="art-meta">
+      <div class="meta-title mono" id="faceTitle">#0112 &middot; THE DISSIDENT</div>
+      <p class="meta-quote mono" id="typewriterText">
+        "Every face is a twelve-frame sequence — the drawing dissolving into its shielded state."
+      </p>
+    </div>
+
+    <!-- Hero Actions: The Key Weapon to Impress Founders -->
+    <div class="cta-cluster">
+      <button id="recordTeaserBtn" class="record-btn mono">
+        <span class="rec-dot"></span>
+        <span class="rec-label">⚡ RECORD 10s CINEMATIC TEASER (FOR X / TWITTER)</span>
+      </button>
+      
+      <div class="face-picker mono">
+        <span class="picker-lbl">SELECT TRIBUTE FACE:</span>
+        <button class="picker-btn active" data-face="0112">#0112 DISSIDENT</button>
+        <button class="picker-btn" data-face="0842">#0842 SHADOW</button>
+        <button class="picker-btn" data-face="1984">#1984 PUNK</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Coordinates Bar -->
+  <footer class="bottom-bar mono">
+    <div class="b-left">
+      <span>PUBLIC ART. PRIVATE OWNERSHIP.</span>
+    </div>
+    <div class="b-center text-gold">
+      MINT: 21 SEPT 2026 &middot; 0.02 ZEC &middot; ORCHARD POOL
+    </div>
+    <div class="b-right">
+      <a href="https://x.com/zaddrnet" target="_blank" rel="noopener" class="x-link">@ZADDRNET ↗</a>
+    </div>
+  </footer>
+
+  <!-- Modal / Overlay: Fullscreen Recording Screen -->
+  <div class="rec-overlay" id="recOverlay" style="display: none;">
+    <div class="rec-modal">
+      <div class="rec-modal-header mono">
+        <span class="text-gold">● RECORDING CINEMATIC TEASER</span>
+        <span id="recCountdown">10s REMAINING</span>
+      </div>
+      <div class="rec-preview-wrap">
+        <canvas id="recCanvas" width="720" height="720"></canvas>
+      </div>
+      <div class="rec-status-line mono" id="recStatusLine">
+        SYNTHESIZING AUDIO & RENDERING 12-FRAME ORCHARD DISSOLVE...
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: The Manifesto & Ready-To-Send Pitch -->
+  <div class="manifesto-modal" id="manifestoModal" style="display: none;">
+    <div class="modal-card">
+      <button class="modal-close mono" id="modalCloseBtn">×</button>
+      <div class="modal-tag mono text-gold">MANIFESTO & TRIBUTE NOTE</div>
+      <h2 class="modal-title">Nice to not meet you.</h2>
+      
+      <div class="modal-body mono">
+        <p>A Zcash address is 178 characters. Nobody reads that over the phone.</p>
+        <p>Your keys are made on your device and never leave it. Zcash's library compiled to WebAssembly proves transactions directly in the browser.</p>
+        <p>2,800 faces drawn by hand. Every face dissolves in twelve frames into the shielded Orchard pool.</p>
+        <hr class="modal-hr">
+
+        <div class="pitch-section">
+          <span class="pitch-tag text-gold">READY-TO-POST X / TWITTER COPY (ATTACH RECORDED VIDEO):</span>
+          <div class="copy-box" id="tweetBox">"A name people can pay. Payments nobody can read."
+
+Created a dark tribute for @zaddrnet: 12-frame dissolution into the @zcash Orchard pool.
+
+The art is public. The ownership is not.
+
+Nice to not meet you. 🛡️</div>
+          <button id="copyTweetBtn" class="btn-copy-mini mono">COPY TWEET TEXT</button>
+        </div>
+
+        <div class="pitch-section" style="margin-top: 14px;">
+          <span class="pitch-tag text-gold">READY-TO-SEND DIRECT MESSAGE TO @zaddrnet:</span>
+          <div class="copy-box" id="dmBox">Hi @zaddrnet,
+
+I created an interactive 12-frame art piece and cinematic tribute to celebrate your launch on Sept 21:
+[Attach the 10s video generated by this tool]
+
+Who I am: A cypherpunk developer & Zcash believer who values client-side WASM proving and sovereign privacy.
+
+What I'll use it for: Pointing my unified address directly to my sovereign name, putting real money through Crosspay, and holding a hand-drawn Orchard face permanently.
+
+Would love to test private beta. Nice to not meet you. 🛡️</div>
+          <button id="copyDmBtn" class="btn-copy-mini mono">COPY DM TEXT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
